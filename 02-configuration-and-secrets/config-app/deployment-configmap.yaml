@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-app-deployment-configmap
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-app-configmap
+  template:
+    metadata:
+      labels:
+        app: config-app-configmap
+    spec:
+      containers:
+      - name: config-app
+        image: config-app:latest
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: config-app-config

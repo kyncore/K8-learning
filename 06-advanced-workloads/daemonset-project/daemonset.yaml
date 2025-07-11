@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: dummy-node-exporter
+  labels:
+    app: dummy-node-exporter
+spec:
+  selector:
+    matchLabels:
+      app: dummy-node-exporter
+  template:
+    metadata:
+      labels:
+        app: dummy-node-exporter
+    spec:
+      # A taints/toleration is added so the daemonset will also run on the master node.
+      tolerations:
+      - key: "node-role.kubernetes.io/control-plane"
+        operator: "Exists"
+        effect: "NoSchedule"
+      containers:
+      - name: dummy-node-exporter
+        # Using a simple busybox image that sleeps forever to simulate an agent
+        image: busybox
+        command: ["/bin/sh", "-c", "sleep infinity"]

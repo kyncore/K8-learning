@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storage-app
+  template:
+    metadata:
+      labels:
+        app: storage-app
+    spec:
+      containers:
+      - name: storage-app
+        image: storage-app:latest
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: storage
+          mountPath: /data
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: storage-app-pvc
