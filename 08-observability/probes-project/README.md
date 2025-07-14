@@ -9,7 +9,7 @@ eval $(minikube -p minikube docker-env)
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/08-observability/probes-project
+    cd 08-observability/probes-project
     ```
 2.  **Build the image:**
     ```bash

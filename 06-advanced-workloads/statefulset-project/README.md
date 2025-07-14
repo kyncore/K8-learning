@@ -9,7 +9,7 @@ eval $(minikube -p minikube docker-env)
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/06-advanced-workloads/statefulset-project
+    cd 06-advanced-workloads/statefulset-project
     ```
 
 2.  **Build the image:**

@@ -28,7 +28,7 @@ This Helm chart deploys the `hello-world:latest` image. Make sure you have built
 
 1.  **Navigate to the chart directory:**
     ```bash
-    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/05-helm-for-package-management/helm-chart
+    cd 05-helm-for-package-management/helm-chart
     ```
 
 2.  **Install the chart:**

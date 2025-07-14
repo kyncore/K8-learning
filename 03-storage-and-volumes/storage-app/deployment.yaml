@@ -15,6 +15,7 @@ spec:
       containers:
       - name: storage-app
         image: storage-app:latest
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
         volumeMounts:

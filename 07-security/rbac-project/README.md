@@ -6,7 +6,7 @@ This project demonstrates how to create a user (represented by a ServiceAccount)
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd kubernetes-learning-path/07-security/rbac-project
+    cd 07-security/rbac-project
     ```
 
 2.  **Apply the manifests:**

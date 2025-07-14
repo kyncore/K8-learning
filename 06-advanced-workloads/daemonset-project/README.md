@@ -6,7 +6,7 @@ This project demonstrates how a DaemonSet ensures one Pod runs on every node in 
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd kubernetes-learning-path/06-advanced-workloads/daemonset-project
+    cd 06-advanced-workloads/daemonset-project
     ```
 
 2.  **Apply the DaemonSet manifest:**

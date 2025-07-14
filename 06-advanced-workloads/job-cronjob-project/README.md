@@ -8,7 +8,7 @@ A Job is used for a one-off task. We will create a Job that calculates Pi to 200
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd kubernetes-learning-path/06-advanced-workloads/job-cronjob-project
+    cd 06-advanced-workloads/job-cronjob-project
     ```
 
 2.  **Apply the Job manifest:**

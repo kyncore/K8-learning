@@ -16,7 +16,7 @@ spec:
       containers:
       - name: stateful-app
         image: stateful-app:latest
-        imagePullPolicy: IfNotPresent # Important for local images
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
         volumeMounts:

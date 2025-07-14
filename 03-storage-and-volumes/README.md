@@ -31,7 +31,7 @@ eval $(minikube -p minikube docker-env)
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/03-storage-and-volumes/storage-app
+    cd 03-storage-and-volumes/storage-app
     ```
 
 2.  **Build the image:**
@@ -44,6 +44,7 @@ eval $(minikube -p minikube docker-env)
 1.  **Create the PersistentVolume and PersistentVolumeClaim:**
     ```bash
     kubectl apply -f persistentvolume.yaml
+
     kubectl apply -f persistentvolumeclaim.yaml
     ```
 
@@ -93,3 +94,5 @@ Now, let's see what happens when the Pod crashes and is recreated.
 3.  **Refresh your browser.** You should see the same timestamp as before, demonstrating that the data has been persisted in the `hostPath` volume.
 
 This module has taught you how to manage storage in a way that is independent of the Pod lifecycle, a critical skill for running stateful applications in Kubernetes.
+
+<!-- kubectl get pods -l app=storage-app ( -->

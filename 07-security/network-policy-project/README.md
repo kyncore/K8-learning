@@ -11,7 +11,7 @@ eval $(minikube -p minikube docker-env)
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/07-security/network-policy-project
+    cd 07-security/network-policy-project
     ```
 2.  **Build the image:**
     ```bash
