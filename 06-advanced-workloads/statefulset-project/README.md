@@ -1,22 +1,20 @@
-### Project: StatefulSet
-
 This project demonstrates how a StatefulSet provides stable, unique network identifiers and stable, persistent storage to its Pods.
 
-#### Step 1: Build and Load the Docker Image
+#### Step 1: Build the Docker Image
+
+First, ensure your terminal is configured to use the Docker daemon inside Minikube.
+```bash
+eval $(minikube -p minikube docker-env)
+```
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd kubernetes-learning-path/06-advanced-workloads/statefulset-project
+    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/06-advanced-workloads/statefulset-project
     ```
 
 2.  **Build the image:**
     ```bash
     docker build -t stateful-app:latest .
-    ```
-
-3.  **Load the image into Minikube:**
-    ```bash
-    minikube image load stateful-app:latest
     ```
 
 #### Step 2: Deploy the Application
@@ -28,7 +26,7 @@ This project demonstrates how a StatefulSet provides stable, unique network iden
     ```
 
 2.  **Verify the Pods are created:**
-    It might take a minute or two for the Pods to be created, as the PersistentVolumes are being provisioned.
+    It might take a minute for the Pods to be created, as the PersistentVolumes are being provisioned.
     ```bash
     kubectl get pods -l app=stateful-app -w
     ```
@@ -69,4 +67,4 @@ This project demonstrates how a StatefulSet provides stable, unique network iden
 3.  **Verify the identity is unchanged:**
     *   Forward the port again to the new `stateful-app-0` pod.
     *   Access it with `curl localhost:8080`.
-    *   You will see that the `storedHostname` is still `stateful-app-0`, even though the current hostname might be different, proving that its storage and identity were persisted.
+    *   You will see that the `storedHostname` is still `stateful-app-0`, even though the current pod name might be different, proving that its storage and identity were persisted.

@@ -1,8 +1,11 @@
-### Project: Liveness and Readiness Probes
-
 This project demonstrates how Kubernetes uses probes to manage application health and availability.
 
-#### Step 1: Build and Load the Docker Image
+#### Step 1: Build the Docker Image
+
+First, ensure your terminal is configured to use the Docker daemon inside Minikube.
+```bash
+eval $(minikube -p minikube docker-env)
+```
 
 1.  **Navigate to the project directory:**
     ```bash
@@ -11,10 +14,6 @@ This project demonstrates how Kubernetes uses probes to manage application healt
 2.  **Build the image:**
     ```bash
     docker build -t probes-app:latest .
-    ```
-3.  **Load the image into Minikube:**
-    ```bash
-    minikube image load probes-app:latest
     ```
 
 #### Step 2: Deploy the Application and Observe Readiness
@@ -31,17 +30,19 @@ This project demonstrates how Kubernetes uses probes to manage application healt
 
 #### Step 3: Test the Liveness Probe
 
-1.  **Once the pod is ready, forward a port to the service:**
+1.  **Once the pod is ready, get the service URL:**
     ```bash
-    kubectl port-forward svc/probes-app-service 8080:80
+    minikube service probes-app-service --url
     ```
 2.  **In a new terminal, "break" the application by hitting the `/break` endpoint:**
+    Use the URL from the previous command.
     ```bash
-    curl localhost:8080/break
+    curl <service-url>/break
     ```
     This will cause the `/healthz` endpoint to start returning a 500 error.
 
 3.  **Watch the Pod status again:**
+    In your other terminal, watch the pod status.
     ```bash
     kubectl get pod -w
     ```

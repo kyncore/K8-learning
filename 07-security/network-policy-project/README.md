@@ -1,27 +1,21 @@
-### Project: NetworkPolicy
-
 This project demonstrates how to use a NetworkPolicy to restrict traffic between pods.
 
-**IMPORTANT:** This project requires a CNI (Container Network Interface) plugin that supports NetworkPolicies. Minikube's default driver does not. You must start Minikube with a supportive driver, for example:
-```bash
-minikube start --network-plugin=cni --cni=calico
-# Or if your cluster is already running, you can just enable the addon
-minikube addons enable calico
-```
+**IMPORTANT:** This project requires a CNI (Container Network Interface) plugin that supports NetworkPolicies. If you followed the main `README.md` for this learning path, you started Minikube with the `--cni=calico` flag, so you are all set.
 
-#### Step 1: Build and Load the Docker Image
+#### Step 1: Build the Docker Image
+
+First, ensure your terminal is configured to use the Docker daemon inside Minikube.
+```bash
+eval $(minikube -p minikube docker-env)
+```
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd kubernetes-learning-path/07-security/network-policy-project
+    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/07-security/network-policy-project
     ```
 2.  **Build the image:**
     ```bash
     docker build -t backend-api:latest -f Dockerfile.backend .
-    ```
-3.  **Load the image into Minikube:**
-    ```bash
-    minikube image load backend-api:latest
     ```
 
 #### Step 2: Deploy the Application
@@ -84,8 +78,8 @@ minikube addons enable calico
 
     # Inside the new pod, install curl and try to connect.
     apk add --no-cache curl
-    curl http://backend-api-service/api/users
-    # This command will hang and eventually time out, because the NetworkPolicy is blocking the connection.
+    curl -m 5 http://backend-api-service/api/users
+    # This command will hang for 5 seconds and then time out, because the NetworkPolicy is blocking the connection.
     ```
 
 #### Step 6: Clean Up

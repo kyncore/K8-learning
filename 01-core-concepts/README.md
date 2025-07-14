@@ -26,27 +26,25 @@ This project will guide you through deploying a simple "Hello, World" web server
 
 ### Step 1: Build the Docker Image
 
-First, you need to build the Docker image for the application.
+First, ensure your terminal is configured to use the Docker daemon inside Minikube. This makes your image instantly available to the cluster.
+```bash
+eval $(minikube -p minikube docker-env)
+```
+
+Now, you can build the Docker image.
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd kubernetes-learning-path/01-core-concepts/hello-world-app
+    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/01-core-concepts/hello-world-app
     ```
 
 2.  **Build the image:**
+    Because you ran the `eval` command, this image is built directly inside the Minikube environment.
     ```bash
     docker build -t hello-world:latest .
     ```
 
-### Step 2: Load the Image into Minikube
-
-By default, Minikube has its own Docker daemon. You need to load your local Docker image into Minikube's Docker daemon so that it can be used by Kubernetes.
-
-```bash
-minikube image load hello-world:latest
-```
-
-### Step 3: Deploy the Application to Kubernetes
+### Step 2: Deploy the Application to Kubernetes
 
 Now, you'll apply the `deployment.yaml` and `service.yaml` files to create the Deployment and Service in your cluster.
 
@@ -54,13 +52,14 @@ Now, you'll apply the `deployment.yaml` and `service.yaml` files to create the D
     ```bash
     kubectl apply -f deployment.yaml
     ```
+    *Note: The `deployment.yaml` uses `imagePullPolicy: IfNotPresent` (or it's omitted, which defaults to that if the image tag is `latest`). This is important. It tells Kubernetes to look for the image locally first before trying to pull from a remote registry.*
 
 2.  **Apply the Service:**
     ```bash
     kubectl apply -f service.yaml
     ```
 
-### Step 4: Verify the Deployment
+### Step 3: Verify the Deployment
 
 You can check the status of your Deployment and Pods.
 
@@ -76,17 +75,14 @@ You can check the status of your Deployment and Pods.
     ```
     You should see two `hello-world-deployment` Pods running.
 
-### Step 5: Access the Application
+### Step 4: Access the Application
 
 Now, you can access your application through the Service.
 
 1.  **Get the Service URL:**
     ```bash
-    minikube service hello-world-service --url
+    minikube service hello-world-service
     ```
-    This will return the URL where you can access the application.
-
-2.  **Open the URL in your browser:**
-    Open the URL in your web browser, and you should see the "Hello, World!" message.
+    This will automatically open the URL in your browser.
 
 Congratulations! You have successfully deployed your first application to Kubernetes.

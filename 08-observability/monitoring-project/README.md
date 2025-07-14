@@ -1,8 +1,11 @@
-### Project: Monitoring with Prometheus
-
 This project provides a basic introduction to monitoring a Kubernetes application with Prometheus.
 
-#### Step 1: Build and Load the Docker Image
+#### Step 1: Build the Docker Image
+
+First, ensure your terminal is configured to use the Docker daemon inside Minikube.
+```bash
+eval $(minikube -p minikube docker-env)
+```
 
 1.  **Navigate to the project directory:**
     ```bash
@@ -11,10 +14,6 @@ This project provides a basic introduction to monitoring a Kubernetes applicatio
 2.  **Build the image:**
     ```bash
     docker build -t monitoring-app:latest .
-    ```
-3.  **Load the image into Minikube:**
-    ```bash
-    minikube image load monitoring-app:latest
     ```
 
 #### Step 2: Deploy Prometheus and the Application
@@ -43,14 +42,16 @@ This project provides a basic introduction to monitoring a Kubernetes applicatio
     This will open the Prometheus dashboard in your browser.
 
 2.  **Check the scrape targets:**
-    In the Prometheus UI, navigate to **Status -> Targets**. You should see your `monitoring-app` pod listed as a target, and its state should be `UP`.
+    In the Prometheus UI, navigate to **Status -> Targets**. You should see your `monitoring-app` pod listed as a target, and its state should be `UP`. It may take a minute for Prometheus to discover and scrape the target.
 
 3.  **Generate some traffic for the app:**
     Let's get the URL for our monitoring app and send some requests to it.
     ```bash
-    minikube service monitoring-app-service --url
+    APP_URL=$(minikube service monitoring-app-service --url)
+    curl $APP_URL
+    curl $APP_URL
+    curl $APP_URL
     ```
-    Open the returned URL in your browser or use `curl` to hit it a few times.
 
 4.  **Query your metrics in Prometheus:**
     *   Go back to the Prometheus UI.

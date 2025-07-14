@@ -18,9 +18,14 @@ This project demonstrates how to use ConfigMaps and Secrets to configure a simpl
 
 ### Step 1: Build the Docker Image
 
+First, ensure your terminal is configured to use the Docker daemon inside Minikube.
+```bash
+eval $(minikube -p minikube docker-env)
+```
+
 1.  **Navigate to the project directory:**
     ```bash
-    cd kubernetes-learning-path/02-configuration-and-secrets/config-app
+    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/02-configuration-and-secrets/config-app
     ```
 
 2.  **Build the image:**
@@ -28,13 +33,7 @@ This project demonstrates how to use ConfigMaps and Secrets to configure a simpl
     docker build -t config-app:latest .
     ```
 
-### Step 2: Load the Image into Minikube
-
-```bash
-minikube image load config-app:latest
-```
-
-### Step 3: Deploy the Application
+### Step 2: Deploy the Application
 
 1.  **Create the ConfigMap and Secret:**
     ```bash
@@ -52,16 +51,15 @@ minikube image load config-app:latest
     kubectl apply -f service.yaml
     ```
 
-### Step 4: Access the Application
+### Step 3: Access the Application
 
 1.  **Get the Service URL:**
     ```bash
-    minikube service config-app-service --url
+    minikube service config-app-service
     ```
+    This will open the application in your browser. You should see "Hello, from a ConfigMap!".
 
-2.  **Open the URL in your browser.** You should see "Hello, from a ConfigMap!".
-
-### Step 5: Update the Deployment to Use the Secret
+### Step 4: Update the Deployment to Use the Secret
 
 Now, let's update the application to use the Secret instead of the ConfigMap.
 
@@ -76,15 +74,16 @@ Now, let's update the application to use the Secret instead of the ConfigMap.
     ```
 
 3.  **Update the Service selector:**
+    The service needs to know about the new labels on the secret-based deployment.
     ```bash
     kubectl patch service config-app-service -p '{"spec":{"selector":{"app":"config-app-secret"}}}'
     ```
 
-### Step 6: Access the Application Again
+### Step 5: Access the Application Again
 
 1.  **Get the Service URL:**
     ```bash
-    minikube service config-app-service --url
+    minikube service config-app-service
     ```
 
 2.  **Open the URL in your browser.** You should now see "Hello, from a Secret!".

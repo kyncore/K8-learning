@@ -20,66 +20,57 @@ A **Release** is an instance of a chart running in a Kubernetes cluster. One cha
 
 This project demonstrates how to use Helm to package and deploy the "Hello, World" application from Module 1.
 
-### Step 1: Install Helm
+### Step 1: Ensure the Image is Available
 
-If you don't have Helm installed, you can find the installation instructions [here](https://helm.sh/docs/intro/install/).
+This Helm chart deploys the `hello-world:latest` image. Make sure you have built this image by following the instructions in Module 1, using the `eval $(minikube docker-env)` command.
 
-### Step 2: Package the Application
+### Step 2: Package and Deploy with Helm
 
 1.  **Navigate to the chart directory:**
     ```bash
-    cd kubernetes-learning-path/05-helm-for-package-management/helm-chart
+    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/05-helm-for-package-management/helm-chart
     ```
 
-2.  **Package the chart:**
+2.  **Install the chart:**
+    You can install the chart directly without packaging it first. Helm will create a release named `my-release`.
     ```bash
-    helm package .
+    helm install my-release .
     ```
-    This will create a `my-chart-0.1.0.tgz` file.
 
-### Step 3: Deploy the Application
-
-1.  **Install the chart:**
-    ```bash
-    helm install my-release my-chart-0.1.0.tgz
-    ```
-    This will create a new release named `my-release`.
-
-2.  **Check the status of the release:**
+3.  **Check the status of the release:**
     ```bash
     helm status my-release
     ```
 
-### Step 4: Access the Application
+### Step 3: Access the Application
 
-1.  **Get the Service URL:**
+1.  **Get the Service URL and open it:**
     ```bash
-    minikube service my-release-service --url
+    minikube service my-release-service
     ```
+    You should see "Hello, World!".
 
-2.  **Open the URL in your browser.** You should see "Hello, World!".
-
-### Step 5: Upgrade the Release
+### Step 4: Upgrade the Release
 
 Now, let's upgrade the release to increase the number of replicas.
 
 1.  **Upgrade the release:**
+    The `--set` flag allows you to override values from `values.yaml`.
     ```bash
-    helm upgrade my-release my-chart-0.1.0.tgz --set replicaCount=3
+    helm upgrade my-release . --set replicaCount=3
     ```
 
 2.  **Check the number of Pods:**
     ```bash
-    kubectl get pods -l app=my-release
+    kubectl get pods -l app.kubernetes.io/instance=my-release
     ```
     You should now see three Pods running.
 
-### Step 6: Uninstall the Release
+### Step 5: Uninstall the Release
 
 To clean up, you can uninstall the release.
-
 ```bash
 helm uninstall my-release
 ```
 
-This module has introduced you to Helm, a powerful tool for managing Kubernetes applications. You have learned how to create a chart, package it, and use it to deploy, upgrade, and uninstall an application.
+This module has introduced you to Helm, a powerful tool for managing Kubernetes applications. You have learned how to create a chart, and use it to deploy, upgrade, and uninstall an application.

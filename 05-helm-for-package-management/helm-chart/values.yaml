@@ -6,6 +6,8 @@ replicaCount: 1
 
 image:
   repository: hello-world
+  # For local images built with `eval $(minikube docker-env)`,
+  # IfNotPresent ensures K8s uses the local image instead of trying to pull from Docker Hub.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"

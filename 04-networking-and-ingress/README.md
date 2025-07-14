@@ -18,17 +18,21 @@ This project demonstrates how to use Ingress to route traffic to different servi
 
 ### Step 1: Enable the Ingress Controller
 
-In Minikube, you need to enable the Ingress controller addon.
-
+In Minikube, you need to enable the Ingress controller addon. This will deploy an NGINX Ingress Controller for you.
 ```bash
 minikube addons enable ingress
 ```
 
 ### Step 2: Build the Docker Images
 
+First, ensure your terminal is configured to use the Docker daemon inside Minikube.
+```bash
+eval $(minikube -p minikube docker-env)
+```
+
 1.  **Navigate to the project directory:**
     ```bash
-    cd kubernetes-learning-path/04-networking-and-ingress/ingress-app
+    cd /Users/kyawyenaing/Klab/kubernetes-learning-path/04-networking-and-ingress/ingress-app
     ```
 
 2.  **Build the images:**
@@ -37,14 +41,7 @@ minikube addons enable ingress
     docker build -t app2:latest -f Dockerfile.app2 .
     ```
 
-### Step 3: Load the Images into Minikube
-
-```bash
-minikube image load app1:latest
-minikube image load app2:latest
-```
-
-### Step 4: Deploy the Applications
+### Step 3: Deploy the Applications
 
 1.  **Deploy the applications and services:**
     ```bash
@@ -59,15 +56,16 @@ minikube image load app2:latest
     kubectl apply -f ingress.yaml
     ```
 
-### Step 5: Access the Applications
+### Step 4: Access the Applications
 
 1.  **Get the Minikube IP address:**
+    This is the IP address that the Ingress controller is listening on.
     ```bash
     minikube ip
     ```
 
 2.  **Access App 1:**
-    Open `http://<minikube-ip>/app1` in your browser. You should see "Hello from App 1!".
+    Open `http://<minikube-ip>/app1` in your browser (replace `<minikube-ip>` with the actual IP). You should see "Hello from App 1!".
 
 3.  **Access App 2:**
     Open `http://<minikube-ip>/app2` in your browser. You should see "Hello from App 2!".
